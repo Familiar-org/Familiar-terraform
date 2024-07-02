@@ -4,11 +4,11 @@ Familiar Project의 테라폼 소스 코드입니다.
 
 ## 1. 소스 코드 구조
 
-모듈 구조를 잡는데는 공식 문서의 [링크](https://developer.hashicorp.com/terraform/language/modules/develop/structure)를 참조하게 되었습니다. 해당 링크에는 테라폼의 기본적인 모듈 구조가 서술되어 있다.
+모듈 구조를 잡는데는 공식 문서의 [링크](https://developer.hashicorp.com/terraform/language/modules/develop/structure)를 참조하게 되었다. 해당 링크에는 테라폼의 기본적인 모듈 구조가 서술되어 있다.
 
 또한 각각의 환경으로 분리하고 Medium size infrastructure를 프로비저닝하기 위해서 [링크](https://ibatulanand.medium.com/the-right-way-to-structure-terraform-project-89a52d67e510)를 참조하게 되었다.
 
-구조는 아래와 같습니다.
+구조는 아래와 같다.
 
 ```Bash
 # 구조 잡고 내용 채우기

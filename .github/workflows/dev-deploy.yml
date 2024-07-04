@@ -4,6 +4,11 @@
 #   push:
 #     branches:
 #       - "dev"
+#     paths:
+#       - "**.java"
+#     paths-ignore:
+#       - "**.md"
+
 # jobs:
 #   CI:
 #     runs-on: ubuntu-latest

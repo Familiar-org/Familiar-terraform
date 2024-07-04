@@ -1,6 +1,7 @@
-# name: dev environment deploy
+name: dev environment deploy
 
-# on:
+on:
+    workflow_dispatch:
 #   push:
 #     branches:
 #       - "dev"
@@ -9,12 +10,12 @@
 #     paths-ignore:
 #       - "**.md"
 
-# jobs:
-#   CI:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Checkout
-#         uses: actions/checkout@v4
-#       - name: Setup Terraform
-#         uses:
-#   CD:
+jobs:
+  CI:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Terraform
+        uses:
+  CD:

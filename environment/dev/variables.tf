@@ -1,5 +1,21 @@
+variable "prefix" {
+  description = "Project name and environment"
+}
 variable "region" {}
+
+# networks
 variable "vpc_cidr" {}
-variable "ecs_cluster_name" {}
-variable "ecs_service_name" {}
-variable "bucket_name" {}
+variable "pub_subnet_az" {
+
+}
+variable "pri_subnet_az" {
+
+}
+variable "pub_subnet_cidr_and_az" {
+  type = map(string)
+}
+variable "pri_subnet_cidr_and_az" {
+  type = map(string)
+}
+# application
+

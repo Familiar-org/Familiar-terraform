@@ -9,9 +9,9 @@ resource "aws_subnet" "public_subnet" {
 }
 
 resource "aws_subnet" "private_subnet" {
-  vpc_id                  = aws_vpc.vpc.id
-  cidr_block              = var.pri_subnet_cidr
-  availability_zone       = var.pri_subnet_az
+  vpc_id            = aws_vpc.vpc.id
+  cidr_block        = var.pri_subnet_cidr
+  availability_zone = var.pri_subnet_az
   tags = {
     Name = "${prefix}-private-subnet"
   }

@@ -9,11 +9,9 @@ module "vpc" {
 }
 
 module "subnet" {
-  source          = "../../modules/networks/subnet"
-  vpc_cidr        = var.vpc_cidr
-  prefix          = var.prefix
-  pub_subnet_az   = [""]
-  pub_subnet_cidr = [""]
-  pri_subnet_az   = [""]
-  pri_subnet_cidr = [""]
+  source                 = "../../modules/networks/subnet"
+  vpc_cidr               = var.vpc_cidr
+  prefix                 = var.prefix
+  pub_subnet_cidr_and_az = var.pub_subnet_cidr_and_az
+  pri_subnet_cidr_and_az = var.pri_subnet_cidr_and_az
 }

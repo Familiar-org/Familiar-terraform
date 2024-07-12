@@ -10,4 +10,7 @@ resource "aws_s3_bucket_acl" "log_bucket_acl" {
   bucket = aws_s3_bucket.log_bucket.id
 }
 
-# backend bucket
+resource "aws_s3_bucket_policy" "lob_bucket_policy" {
+  policy = 
+  bucket = aws_s3_bucket.log_bucket
+}

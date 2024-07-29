@@ -24,7 +24,9 @@ resource "aws_s3_bucket_policy" "frontend-app" {
 
 resource "aws_cloudfront_distribution" "frontend-app" {
   viewer_certificate {
-    
+    cloudfront_default_certificate = true
+    acm_certificate_arn = # 나중에 기입
+    minimum_protocol_version = "TLSv1.2_2021"
   }
   origin {
     domain_name = aws_s3_bucket.frontend-app.bucket_regional_domain_name
@@ -37,7 +39,7 @@ resource "aws_cloudfront_distribution" "frontend-app" {
     cached_methods   = ["GET", "HEAD"]
     viewer_protocol_policy = "redirect-to-https"
   }
-  aliases = ["familiar.link","www.famialiar.link"]
+  aliases = var.env == "dev" ? ["dev.famialiar.link"] : ["familiar.link","www.famialiar.link"]
   restrictions {
     geo_restriction {
       restriction_type = "none"
@@ -74,8 +76,4 @@ resource "aws_cloudfront_origin_access_control" "frontend-app" {
 
 resource "aws_cloudfront_response_headers_policy" "frontend-app" {
   name = 
-}
-
-data "aws_" "name" {
-  
 }

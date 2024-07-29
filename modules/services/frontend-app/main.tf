@@ -13,7 +13,7 @@ resource "aws_s3_bucket_acl" "frontend-app" {
 resource "aws_s3_bucket_versioning" "frontend-app" {
   bucket = aws_s3_bucket.frontend-app.id
   versioning_configuration {
-    status = "Enabled"
+    status = "Disabled"
   }
 }
 
@@ -32,7 +32,7 @@ resource "aws_cloudfront_distribution" "frontend-app" {
     origin_access_control_id = aws_cloudfront_origin_access_control.frontend-app.id
   }
   default_cache_behavior {
-    target_origin_id = 
+    target_origin_id = aws_s3_bucket.frontend-app.id
     cached_methods = 
     allowed_methods = 
     viewer_protocol_policy = 

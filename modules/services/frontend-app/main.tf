@@ -13,7 +13,7 @@ resource "aws_s3_bucket_acl" "frontend-app" {
 resource "aws_s3_bucket_versioning" "frontend-app" {
   bucket = aws_s3_bucket.frontend-app.id
   versioning_configuration {
-    status = "Disabled"
+    status = var.s3_versioning
   }
 }
 
@@ -33,9 +33,9 @@ resource "aws_cloudfront_distribution" "frontend-app" {
   }
   default_cache_behavior {
     target_origin_id = aws_s3_bucket.frontend-app.id
-    cached_methods = 
-    allowed_methods = 
-    viewer_protocol_policy = 
+    allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
+    cached_methods   = ["GET", "HEAD"]
+    viewer_protocol_policy = "redirect-to-https"
   }
   aliases = ["familiar.link","www.famialiar.link"]
   restrictions {
@@ -43,7 +43,11 @@ resource "aws_cloudfront_distribution" "frontend-app" {
       restriction_type = "none"
     }
   }
+  default_root_object = "index.html"
   enabled = true
+  tags = {
+    Name = "${var.prefix}"
+  }
 }
 
 resource "aws_cloudfront_cache_policy" "frontend-app" {

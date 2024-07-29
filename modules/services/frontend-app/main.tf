@@ -36,7 +36,8 @@ resource "aws_cloudfront_distribution" "frontend-app" {
   default_cache_behavior {
     target_origin_id = aws_s3_bucket.frontend-app.id
     allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
-    cached_methods   = ["GET", "HEAD"]
+    cache_policy_id = "658327ea-f89d-4fab-a63d-7e88639e58f6"
+    cached_methods = ["GET", "HEAD"]
     viewer_protocol_policy = "redirect-to-https"
   }
   aliases = var.env == "dev" ? ["dev.famialiar.link"] : ["familiar.link","www.famialiar.link"]

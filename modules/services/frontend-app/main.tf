@@ -40,7 +40,7 @@ resource "aws_cloudfront_distribution" "frontend-app" {
     cached_methods = ["GET", "HEAD"]
     viewer_protocol_policy = "redirect-to-https"
   }
-  aliases = var.env == "dev" ? ["dev.famialiar.link"] : ["familiar.link","www.famialiar.link"]
+  aliases = var.env == "dev" ? ["dev.familiar.link"] : ["familiar.link","www.familiar.link"]
   restrictions {
     geo_restriction {
       restriction_type = "none"

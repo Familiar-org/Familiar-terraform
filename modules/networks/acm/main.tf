@@ -3,7 +3,7 @@ resource "aws_acm_certificate" "familiar_com" {
   validation_method = "DNS"
 
   tags = {
-    Environment = "dev"
+    Environment = var.domain_tag_env
   }
 
   lifecycle {

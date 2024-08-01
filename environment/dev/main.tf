@@ -1,5 +1,12 @@
 provider "aws" {
   region = var.region
+  default_tags {
+    tags = {
+      Environment = "Dev"
+      Project = "Familiar"
+      Terraform = true
+    }
+  }
 }
 
 module "vpc" {

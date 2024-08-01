@@ -5,9 +5,18 @@ resource "aws_s3_bucket" "frontend-app" {
   }
 }
 
-resource "aws_s3_bucket_acl" "frontend-app" {
+resource "aws_s3_bucket_ownership_controls" "frontend-app" {
   bucket = aws_s3_bucket.frontend-app.id
-  acl = "public-read"
+  rule {
+    object_ownership = "BucketOwnerPreferred"
+  }
+}
+
+resource "aws_s3_bucket_acl" "frontend-app" {
+  depends_on = [ aws_s3_bucket_ownership_controls.frontend-app ]
+
+  bucket = aws_s3_bucket.frontend-app.id
+  acl = "private"
 }
 
 resource "aws_s3_bucket_versioning" "frontend-app" {
@@ -25,7 +34,7 @@ resource "aws_s3_bucket_policy" "frontend-app" {
 resource "aws_cloudfront_distribution" "frontend-app" {
   viewer_certificate {
     cloudfront_default_certificate = true
-    acm_certificate_arn = # 나중에 기입
+    acm_certificate_arn = aws_acm_certificate.familiar_com.id
     minimum_protocol_version = "TLSv1.2_2021"
   }
   origin {

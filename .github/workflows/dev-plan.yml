@@ -26,6 +26,8 @@ jobs:
           # assume role을 위한 arn
           role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
           aws-region: us-east-1 # Required
+      - name: Test ls
+        run: ls
       - name: Move workdir to dev
         run: cd ./Familiar-terraform/environment/dev
       - name: Setup Terraform 

@@ -25,7 +25,6 @@ jobs:
         with:
           # assume role을 위한 arn
           role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
-          role-session-name: ${{ github.workflow }}
           aws-region: us-east-1 # Required
       - name: Move workdir to dev
         run: cd ./Familiar-terraform/environment/dev

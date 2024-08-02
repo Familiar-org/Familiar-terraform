@@ -7,9 +7,6 @@ on:
     # dev branch의 경우에만 push
     branches:
       - "dev"
-    # tf 형식의 파일이 변경됐을때만 push
-    paths: 
-      - "**.tf"
 
 permissions:
   id-token: write

@@ -1,0 +1,70 @@
+name: Terraform plan
+
+on:
+  # 수동 실행 포함
+  workflow_dispatch: 
+  push:
+    # dev branch의 경우에만 push
+    branches:
+      - "dev"
+    # tf 형식의 파일이 변경됐을때만 push
+    paths: 
+      - "**.tf"
+
+permissions:
+  id-token: write
+  contents: read
+
+env:
+  AWS_ROLE_TO_ASSUME: "${{ secrets.AWS_ROLE_TO_ASSUME }}"
+
+jobs:
+  terraform-plan:
+    name: Terraform Plan
+    runs-on: ubuntu-latest
+    outputs:
+      tfplanExitCode: ${{ steps.tf-plan.outputs.exitcode }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          # assume role을 위한 arn
+          role-to-assume: $AWS_ROLE_TO_ASSUME
+          role-session-name: ${{ github.workflow }}
+          aws-region: us-east-1 # Required
+      - name: Move workdir to dev
+        run: cd ./Familiar-terraform/environment/dev
+      - name: Setup Terraform 
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_wrapper: false
+      - name: Terraform Init
+        run: terraform init
+      - name: Terraform Format
+        run: terraform fmt -check
+      - name: Terraform Plan
+        id: tf-plan
+        run: |
+          export exitcode=0
+          terraform plan -detailed-exitcode -no-color -out tfplan || export exitcode=$?
+
+          echo "exitcode=$exitcode" >> $GITHUB_OUTPUT
+
+          if [ $exitcode -eq 1 ]; then
+            echo Terraform Plan Failed!
+            exit 1
+          else 
+            exit 0
+          fi
+
+
+# jobs:
+#   CI:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout
+#         uses: actions/checkout@v4
+#       - name: Setup Terraform
+#         uses:
+#   CD:

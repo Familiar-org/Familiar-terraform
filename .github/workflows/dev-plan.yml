@@ -12,9 +12,6 @@ permissions:
   id-token: write
   contents: read
 
-env:
-  AWS_ROLE_TO_ASSUME: ${{ secrets.AWS_ROLE_TO_ASSUME }}
-
 jobs:
   terraform-plan:
     name: Terraform Plan
@@ -27,7 +24,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v4
         with:
           # assume role을 위한 arn
-          role-to-assume: $AWS_ROLE_TO_ASSUME
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
           role-session-name: ${{ github.workflow }}
           aws-region: us-east-1 # Required
       - name: Move workdir to dev

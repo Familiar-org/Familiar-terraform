@@ -1,4 +1,4 @@
-name: Terraform plan
+name: Terraform dev plan
 
 on:
   # 수동 실행 포함

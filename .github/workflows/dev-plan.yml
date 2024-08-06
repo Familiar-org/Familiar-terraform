@@ -58,6 +58,4 @@ jobs:
           else 
             exit 0
           fi
-      - name: tf state list
-        run: terraform state list
         

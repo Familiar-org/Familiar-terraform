@@ -9,7 +9,7 @@ permissions:
 
 jobs:
   terraform-apply:
-    name: Terraform Apply
+    name: Terraform Apply #apply
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

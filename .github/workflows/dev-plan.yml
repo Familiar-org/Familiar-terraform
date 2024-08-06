@@ -35,10 +35,8 @@ jobs:
           aws-region: us-east-1 # Required
       - name: Terraform Init
         run: terraform init
-        working-directory: ${{ env.WORK_DIR }}
       - name: Terraform Format
         run: terraform fmt -check
-        working-directory: ${{ env.WORK_DIR }}
       - name: Terraform Plan
         id: tf-plan
         run: |

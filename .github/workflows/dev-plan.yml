@@ -32,7 +32,7 @@ jobs:
           aws-region: us-east-1 # Required
       - name: Set Working Dir 
         run: |
-          if ["${{ github.ref }}" == "refs/head/dev"]; then
+          if ["${{ github.ref }}" == "refs/heads/dev"]; then
             echo "WORK_DIR=environment/dev" >> $GITHUB_ENV
           else 
             echo "none"

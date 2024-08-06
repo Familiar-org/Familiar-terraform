@@ -5,10 +5,13 @@ terraform {
       version = "~> 5.56.1"
     }
   }
-  backend "s3" {
-    bucket  = "familiar-terraform-s3-bucket"
-    key     = "dev/terraform.tfstate"
-    region  = "us-east-1"
-    encrypt = true
+  # backend "s3" {
+  #   bucket  = "familiar-terraform-s3-bucket"
+  #   key     = "dev/terraform.tfstate"
+  #   region  = "us-east-1"
+  #   encrypt = true
+  # }
+  backend "local" {
+    path = "terraform.tfstate"
   }
 }

@@ -12,6 +12,9 @@ permissions:
   id-token: write
   contents: read
 
+env:
+  WORK_DIR: environment/dev
+
 jobs:
   terraform-plan:
     name: Terraform Plan
@@ -30,13 +33,6 @@ jobs:
           # assume role을 위한 arn
           role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
           aws-region: us-east-1 # Required
-      - name: Set Working Dir 
-        run: |
-          if ["${{ github.ref }}" == "refs/heads/dev"]; then
-            echo "WORK_DIR=environment/dev" >> $GITHUB_ENV
-          else 
-            echo "none"
-          fi
       - name: Terraform Init
         run: terraform init
         working-directory: ${{ env.WORK_DIR }}

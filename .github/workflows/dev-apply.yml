@@ -1,8 +1,6 @@
 name: Terraform DEV apply
 
-on:
-  # 수동 실행 포함
-  workflow_dispatch: 
+on: workflow_dispatch
 
 permissions:
   id-token: write

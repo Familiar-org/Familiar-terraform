@@ -2,9 +2,6 @@ name: Terraform dev apply
 
 on: 
   workflow_dispatch:
-  push:
-    branches:
-      - dev
 
 permissions:
   id-token: write

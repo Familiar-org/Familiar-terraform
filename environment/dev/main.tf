@@ -23,3 +23,9 @@ module "subnet" {
   pri_subnet_cidr_and_az    = var.pri_subnet_cidr_and_az
   pri_db_subnet_cidr_and_az = var.pri_db_subnet_cidr_and_az
 }
+
+module "igw" {
+  source = "../../modules/networks/internet_gateway"
+  vpc_id = module.vpc.vpc_id
+  prefix = var.prefix
+}

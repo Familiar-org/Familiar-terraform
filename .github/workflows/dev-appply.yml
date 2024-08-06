@@ -1,4 +1,4 @@
-name: Terraform DEV apply
+name: Terraform dev apply test
 
 on: 
   workflow_dispatch:

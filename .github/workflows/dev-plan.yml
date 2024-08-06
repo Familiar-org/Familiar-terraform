@@ -30,14 +30,22 @@ jobs:
           # assume role을 위한 arn
           role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
           aws-region: us-east-1 # Required
-      - name: Move workdir to dev
-        run: cd ./environment/dev
+      - name: Set Working Dir 
+        run: |
+          if ["${{ github.ref }}" == "refs/head/dev"]; then
+            echo "WORK_DIR=environment/dev" >> $GITHUB_ENV
+          else 
+            echo "none"
+          fi
       - name: Terraform Init
         run: terraform init
+        working-directory: ${{ env.WORK_DIR }}
       - name: Terraform Format
         run: terraform fmt -check
+        working-directory: ${{ env.WORK_DIR }}
       - name: Terraform Plan
         id: tf-plan
+        working-directory: ${{ env.WORK_DIR }}
         run: |
           export exitcode=0
           terraform plan -var-file="environment/dev/dev.tfvars" -detailed-exitcode -no-color -out tfplan || export exitcode=$?
@@ -50,3 +58,4 @@ jobs:
           else 
             exit 0
           fi
+        

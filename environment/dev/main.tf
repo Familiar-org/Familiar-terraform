@@ -29,3 +29,7 @@ module "igw" {
   vpc_id = module.vpc.vpc_id
   prefix = var.prefix
 }
+
+resource "aws_vpc" "test" {
+  cidr_block = "10.59.0.0/16"
+}

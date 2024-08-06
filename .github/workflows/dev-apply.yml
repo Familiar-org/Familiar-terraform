@@ -2,6 +2,7 @@ name: Terraform dev apply
 
 on: 
   workflow_dispatch:
+  
 
 permissions:
   id-token: write
@@ -28,4 +29,4 @@ jobs:
       - name: Terraform Init
         run: terraform init
       - name: Terraform Apply
-        run: terraform apply -auto-approve
+        run: terraform apply -auto-approve -var-file="dev.tfvars"

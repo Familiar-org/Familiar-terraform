@@ -48,7 +48,7 @@ jobs:
         working-directory: ${{ env.WORK_DIR }}
         run: |
           export exitcode=0
-          terraform plan -var-file="environment/dev/dev.tfvars" -detailed-exitcode -no-color -out tfplan || export exitcode=$?
+          terraform plan -input=false -var-file="environment/dev/dev.tfvars" -detailed-exitcode -no-color -out tfplan || export exitcode=$?
 
           echo "exitcode=$exitcode" >> $GITHUB_OUTPUT
 
@@ -58,4 +58,6 @@ jobs:
           else 
             exit 0
           fi
+      - name: tf state list
+        run: terraform state list
         

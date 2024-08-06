@@ -2,7 +2,7 @@ variable "prefix" {
   description = "Project name and environment"
 }
 variable "region" {
-  default = "us-east-1"
+
 }
 
 # networks

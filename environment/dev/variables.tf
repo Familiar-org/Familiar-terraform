@@ -1,10 +1,14 @@
 variable "prefix" {
   description = "Project name and environment"
 }
-variable "region" {}
+variable "region" {
+
+}
 
 # networks
-variable "vpc_cidr" {}
+variable "vpc_cidr" {
+
+}
 variable "pub_subnet_az" {
 
 }

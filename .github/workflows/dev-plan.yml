@@ -41,11 +41,10 @@ jobs:
         working-directory: ${{ env.WORK_DIR }}
       - name: Terraform Plan
         id: tf-plan
-        working-directory: ${{ env.WORK_DIR }}
         run: |
-          terraform plan -input=false -var-file="environment/dev.tfvars" -out tfplan
+          terraform plan -input=false -var-file="environment/dev/dev.tfvars" -out tfplan
           # export exitcode=0
-          # terraform plan -input=false -var-file="environment/dev.tfvars" -detailed-exitcode -no-color -out tfplan || export exitcode=$?
+          # terraform plan -input=false -var-file="environment/dev/dev.tfvars" -detailed-exitcode -no-color -out tfplan || export exitcode=$?
 
           # echo "exitcode=$exitcode" >> $GITHUB_OUTPUT
 

@@ -8,9 +8,9 @@ on:
     branches:
       - "dev"
 
-defaults:
-  run:
-    working-directory: environment/dev
+# defaults:
+#   run:
+#     working-directory: environment/dev
 
 permissions:
   id-token: write
@@ -35,30 +35,21 @@ jobs:
           role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
           aws-region: us-east-1 # Required
       - name: Terraform Init
-        run: |
-          terraform init
-          pwd
-          ls -al
+        run: terraform init
+        working-directory: environment/dev
       - name: Terraform Format
         run: terraform fmt -check
+        working-directory: environment/dev
       - name: Terraform Plan
         id: tf-plan
+        working-directory: environment/dev 
         run: |
-          terraform plan -input=false -var-file="dev.tfvars" -out tfplan -no-color -detailed-exitcode
-          # export exitcode=0
-          # terraform plan -input=false -var-file="dev.tfvars" -detailed-exitcode -no-color -out tfplan || export exitcode=$?
-
-          # echo "exitcode=$exitcode" >> $GITHUB_OUTPUT
-
-          # if [ $exitcode -eq 1 ]; then
-          #   echo Terraform Plan Failed!
-          #   exit 1
-          # else 
-          #   exit 0
-          # fi
-          pwd
-          ls -al
-      - name: Print working directory
-        run: pwd
-      - name: List files
-        run: ls -al
+          export exitcode=0
+          terraform plan -input=false -var-file="dev.tfvars" -detailed-exitcode -no-color -out tfplan || export exitcode=$?
+          echo "exitcode=$exitcode" >> $GITHUB_OUTPUT
+          if [ $exitcode -eq 1 ]; then
+            echo Terraform Plan Failed!
+            exit 1
+          else 
+            exit 0
+          fi

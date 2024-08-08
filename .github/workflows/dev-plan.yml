@@ -3,15 +3,12 @@ name: Terraform dev plan
 on:
   # 수동 실행 포함
   workflow_dispatch: 
+  # dev branch에 push 될 시 workflow가 실행
   push:
-    # dev branch의 경우에만 push
     branches:
       - "dev"
 
-# defaults:
-#   run:
-#     working-directory: environment/dev
-
+# OIDC jwt token 발급을 위한 설정
 permissions:
   id-token: write
   contents: read
@@ -33,7 +30,7 @@ jobs:
         with:
           # assume role을 위한 arn
           role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
-          aws-region: us-east-1 # Required
+          aws-region: us-east-1
       - name: Terraform Init
         run: terraform init
         working-directory: environment/dev

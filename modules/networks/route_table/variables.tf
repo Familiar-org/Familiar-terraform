@@ -1,21 +1,23 @@
 variable "prefix" {
-
+  
 }
-variable "vpc_cidr" {
 
-}
 variable "vpc_id" {
-
+  
 }
-variable "pub_subnet_cidr" {
 
+variable "igw_id" {
+  
 }
-variable "pub_subnet_az" {
 
+variable "public_subnet_ids" {
+  
 }
-variable "pri_subnet_cidr" {
 
+variable "private_subnet_ids" {
+  
 }
-variable "pri_subnet_az" {
 
+variable "private_subnet_ids" {
+  
 }

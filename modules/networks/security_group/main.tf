@@ -6,48 +6,48 @@ resource "aws_vpc" "vpc" {
 }
 
 resource "aws_subnet" "public_subnet" {
-  vpc_id                  = aws_vpc.vpc.id
+  vpc_id                  = var.vpc_id
   cidr_block              = var.pub_subnet_cidr
   availability_zone       = var.pub_subnet_az
   map_public_ip_on_launch = true
   tags = {
-    Name = "${prefix}-public-subnet"
+    Name = "${var.prefix}-public-subnet"
   }
 }
 
 resource "aws_subnet" "private_subnet" {
-  vpc_id                  = aws_vpc.vpc.id
-  cidr_block              = var.pri_subnet_cidr
-  availability_zone       = var.pri_subnet_az
+  vpc_id            = var.vpc_id
+  cidr_block        = var.pri_subnet_cidr
+  availability_zone = var.pri_subnet_az
   tags = {
-    Name = "${prefix}-private-subnet"
+    Name = "${var.prefix}-private-subnet"
   }
 }
 
 resource "aws_internet_gateway" "igw" {
-  vpc_id = aws_vpc.vpc.id
+  vpc_id = var.vpc_id
   tags = {
-    Name = "${prefix}-igw"
+    Name = "${var.prefix}-igw"
   }
 }
 
 resource "aws_internet_gateway_attachment" "name" {
   internet_gateway_id = aws_internet_gateway.igw.id
-  vpc_id = aws_vpc.vpc.id
+  vpc_id              = var.vpc_id
 }
 
 resource "aws_route_table" "name" {
   vpc_id = var.vpc_id
- 
+
   tags = {
     Name = "${var.prefix}-rtb-public"
   }
 }
 
 resource "aws_route" "name" {
-  
+
 }
 
 resource "aws_route_table_association" "name" {
-  
+
 }

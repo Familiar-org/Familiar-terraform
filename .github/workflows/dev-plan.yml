@@ -39,7 +39,6 @@ jobs:
         working-directory: environment/dev
       - name: Terraform Format
         run: terraform fmt -check
-        working-directory: environment/dev
       - name: Terraform Plan
         id: tf-plan
         working-directory: environment/dev 

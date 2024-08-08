@@ -1,3 +1,17 @@
 # NAT GW
-# NAT route table assocation
+resource "aws_nat_gateway" "ngw" {
+  subnet_id     = var.pri_subnet_id
+  allocation_id = aws_eip.ngw.id
+  tags = {
+    Name = "${var.prefix}"
+  }
+}
+
 # eip
+
+resource "aws_eip" "ngw" {
+
+  tags = {
+    Name = "${var.prefix}"
+  }
+}

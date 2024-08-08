@@ -28,5 +28,5 @@ jobs:
         run: terraform init
         working-directory: environment/dev
       - name: Terraform Destroy
-        run: terraform destroy
+        run: terraform destroy -var-file="dev.tfvars"
         working-directory: environment/dev

@@ -24,9 +24,9 @@ jobs:
           # assume role을 위한 arn
           role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
           aws-region: us-east-1 # Required
-      - name: Move workdir to dev
-        run: cd ./environment/dev
       - name: Terraform Init
         run: terraform init
+        working-directory: environment/dev
       - name: Terraform Apply
-        run: terraform apply -auto-approve -var-file="environment/dev/dev.tfvars"
+        run: terraform apply -auto-approve -var-file="dev.tfvars"
+        working-directory: environment/dev

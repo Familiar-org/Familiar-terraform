@@ -4,6 +4,9 @@ variable "prefix" {
 variable "vpc_cidr" {
 
 }
+variable "vpc_id" {
+
+}
 variable "pub_subnet_cidr" {
 
 }

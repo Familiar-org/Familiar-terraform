@@ -19,6 +19,7 @@ module "subnet" {
   source                    = "../../modules/networks/subnet"
   vpc_cidr                  = var.vpc_cidr
   prefix                    = var.prefix
+  vpc_id                    = module.vpc.vpc_id
   pub_subnet_cidr_and_az    = var.pub_subnet_cidr_and_az
   pri_subnet_cidr_and_az    = var.pri_subnet_cidr_and_az
   pri_db_subnet_cidr_and_az = var.pri_db_subnet_cidr_and_az

@@ -1,33 +1,33 @@
 resource "aws_subnet" "public_subnet" {
-  for_each = toset(var.pub_subnet_cidr_and_az)
+  for_each = var.pub_subnet_cidr_and_az
 
-  vpc_id                  = aws_vpc.vpc.id
+  vpc_id                  = var.vpc_id
   cidr_block              = each.key
   availability_zone       = each.value
   map_public_ip_on_launch = true
   tags = {
-    Name = "${prefix}-public-subnet"
+    Name = "${var.prefix}-public-subnet"
   }
 }
 
 resource "aws_subnet" "private_subnet" {
-  for_each = toset(var.pri_subnet_cidr_and_az)
+  for_each = var.pri_subnet_cidr_and_az
 
-  vpc_id            = aws_vpc.vpc.id
+  vpc_id            = var.vpc_id
   cidr_block        = each.key
   availability_zone = each.value
   tags = {
-    Name = "${prefix}-private-subnet"
+    Name = "${var.prefix}-private-subnet"
   }
 }
 
 resource "aws_subnet" "private_db_subnet" {
-  for_each = toset(var.pri_db_subnet_cidr_and_az)
+  for_each = var.pri_db_subnet_cidr_and_az
 
-  vpc_id            = aws_vpc.vpc.id
+  vpc_id            = var.vpc_id
   cidr_block        = each.key
   availability_zone = each.value
   tags = {
-    Name = "${prefix}-private-db-subnet"
+    Name = "${var.prefix}-private-db-subnet"
   }
 }

@@ -6,6 +6,10 @@ variable "vpc_cidr" {
 
 }
 
+variable "vpc_id" {
+
+}
+
 variable "pub_subnet_cidr_and_az" {
   type = map(string)
 }

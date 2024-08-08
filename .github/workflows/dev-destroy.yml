@@ -1,0 +1,28 @@
+name: Terraform dev destroy
+
+on:
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+      
+
+jobs:
+  terraform-destroy:
+    name: Terraform destroy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Terraform 
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_wrapper: false
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          # assume role을 위한 arn
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          aws-region: us-east-1
+      - name: Terraform Destroy
+        run: terraform destroy
+        working-directory: environment/dev

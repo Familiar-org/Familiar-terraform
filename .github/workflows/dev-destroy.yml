@@ -24,6 +24,9 @@ jobs:
           # assume role을 위한 arn
           role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
           aws-region: us-east-1
+      - name: Terraform Init
+        run: terraform init
+        working-directory: environment/dev
       - name: Terraform Destroy
         run: terraform destroy
         working-directory: environment/dev

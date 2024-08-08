@@ -38,14 +38,16 @@ jobs:
           terraform init
           pwd
           ls -al
+        working-directory: ./environment/dev
       - name: Terraform Format
         run: terraform fmt -check
+        working-directory: ./environment/dev
       - name: Terraform Plan
         id: tf-plan
         run: |
-          terraform plan -input=false -var-file="environment/dev/dev.tfvars" -out tfplan -no-color -detailed-exitcode
+          terraform plan -input=false -var-file="dev.tfvars" -out tfplan -no-color -detailed-exitcode
           # export exitcode=0
-          # terraform plan -input=false -var-file="environment/dev/dev.tfvars" -detailed-exitcode -no-color -out tfplan || export exitcode=$?
+          # terraform plan -input=false -var-file="dev.tfvars" -detailed-exitcode -no-color -out tfplan || export exitcode=$?
 
           # echo "exitcode=$exitcode" >> $GITHUB_OUTPUT
 

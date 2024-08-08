@@ -12,7 +12,7 @@ provider "aws" {
 module "vpc" {
   source   = "../../modules/networks/vpc"
   vpc_cidr = var.vpc_cidr
-  prefix   = var.prefix
+  prefix = var.prefix
 }
 
 module "subnet" {

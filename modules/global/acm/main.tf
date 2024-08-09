@@ -7,6 +7,6 @@ resource "aws_acm_certificate" "familiar_com" {
   }
 
   lifecycle {
-    create_before_destroy = true
+    prevent_destroy = true
   }
 }

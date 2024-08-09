@@ -5,6 +5,8 @@ on:
   workflow_dispatch: 
   # dev branch에 push 될 시 workflow가 실행
   push:
+    paths: 
+      - "**.tf"
     branches:
       - "dev"
 

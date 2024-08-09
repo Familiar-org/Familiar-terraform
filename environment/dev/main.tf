@@ -9,10 +9,12 @@ provider "aws" {
   }
 }
 
+# Network
+
 module "vpc" {
   source   = "../../modules/networks/vpc"
   vpc_cidr = var.vpc_cidr
-  prefix = var.prefix
+  prefix   = var.prefix
 }
 
 module "subnet" {
@@ -30,3 +32,10 @@ module "igw" {
   vpc_id = module.vpc.vpc_id
   prefix = var.prefix
 }
+
+# Front-End
+
+
+# Back-End
+
+

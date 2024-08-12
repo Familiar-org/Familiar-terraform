@@ -36,7 +36,6 @@ resource "aws_route_table_association" "private_subnets" {
   subnet_id      = var.private_subnet_id
 }
 
-# db private route table association
 resource "aws_route_table_association" "db_private_subnets" {
   route_table_id = aws_route_table.private.id
   subnet_id      = var.db_private_subnet_id

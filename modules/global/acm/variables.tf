@@ -1,7 +1,11 @@
-variable "domain_name" {
+variable "prefix" {
+  
+}
+
+variable "familiar_com_domain_name" {
 
 }
 
-variable "domain_tag_env" {
+variable "familiar_com_domain_tag_env" {
 
 }

@@ -3,7 +3,7 @@ resource "aws_nat_gateway" "ngw" {
   subnet_id     = var.pri_subnet_id
   allocation_id = aws_eip.ngw.id
   tags = {
-    Name = "${var.prefix}"
+    Name = "${var.prefix}-nat-gw"
   }
 }
 
@@ -12,6 +12,6 @@ resource "aws_nat_gateway" "ngw" {
 resource "aws_eip" "ngw" {
 
   tags = {
-    Name = "${var.prefix}"
+    Name = "${var.prefix}-nat-eip"
   }
 }

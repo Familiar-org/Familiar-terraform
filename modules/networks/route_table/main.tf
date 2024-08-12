@@ -8,7 +8,7 @@ resource "aws_route_table" "public" {
   }
 
   tags = {
-    Name = "${prefix}-pub-rt"
+    Name = "${prefix}-pub-rtb"
   }
 }
 
@@ -24,6 +24,10 @@ resource "aws_route_table" "private" {
   route {
     cidr_block = "0.0.0.0/0"
     gateway_id = var.nat_gw_id
+  }
+
+  tags = {
+    Name = "${prefix}-pri-rtb"
   }
 }
 

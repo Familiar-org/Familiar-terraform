@@ -1,3 +1,4 @@
+# S3 bucket
 resource "aws_s3_bucket" "frontend-app" {
   bucket = "${var.prefix}-frontend-app"
   tags = {
@@ -13,10 +14,10 @@ resource "aws_s3_bucket_ownership_controls" "frontend-app" {
 }
 
 resource "aws_s3_bucket_acl" "frontend-app" {
-  depends_on = [ aws_s3_bucket_ownership_controls.frontend-app ]
+  depends_on = [aws_s3_bucket_ownership_controls.frontend-app]
 
   bucket = aws_s3_bucket.frontend-app.id
-  acl = "private"
+  acl    = "private"
 }
 
 resource "aws_s3_bucket_versioning" "frontend-app" {
@@ -31,59 +32,78 @@ resource "aws_s3_bucket_policy" "frontend-app" {
   policy = data.aws_iam_policy_document.frontend-bucket-policy
 }
 
+data "aws_iam_policy_document" "frontend-bucket-policy" {
+  # oac allow policy
+  statement {
+    sid = "allowOacPolicy"
+    effect = "Allow"
+    actions = [
+
+    ]
+    principals {
+      type = 
+      identifiers = 
+    }
+    resources = [
+
+    ]
+  }
+}
+
+# CloudFront Distribution
 resource "aws_cloudfront_distribution" "frontend-app" {
   viewer_certificate {
     cloudfront_default_certificate = true
-    acm_certificate_arn = aws_acm_certificate.familiar_com.id
-    minimum_protocol_version = "TLSv1.2_2021"
+    acm_certificate_arn            = var.familiar_com_acm_id
+    minimum_protocol_version       = "TLSv1.2_2021"
   }
+
   origin {
-    domain_name = aws_s3_bucket.frontend-app.bucket_regional_domain_name
-    origin_id = var.s3_origin_id
+    domain_name              = aws_s3_bucket.frontend-app.bucket_domain_name
+    origin_id                = var.s3_origin_id
     origin_access_control_id = aws_cloudfront_origin_access_control.frontend-app.id
   }
+
   default_cache_behavior {
-    target_origin_id = aws_s3_bucket.frontend-app.id
-    allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
-    cache_policy_id = "658327ea-f89d-4fab-a63d-7e88639e58f6"
-    cached_methods = ["GET", "HEAD"]
+    target_origin_id       = aws_s3_bucket.frontend-app.id
+    allowed_methods        = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
+    cache_policy_id        = "658327ea-f89d-4fab-a63d-7e88639e58f6"
+    cached_methods         = ["GET", "HEAD"]
     viewer_protocol_policy = "redirect-to-https"
+    compress = true
   }
-  aliases = var.env == "dev" ? ["dev.familiar.link"] : ["familiar.link","www.familiar.link"]
+
   restrictions {
     geo_restriction {
       restriction_type = "none"
     }
   }
-  default_root_object = "index.html"
-  enabled = true
-  tags = {
-    Name = "${var.prefix}"
-  }
-}
 
-resource "aws_cloudfront_cache_policy" "frontend-app" {
-  parameters_in_cache_key_and_forwarded_to_origin {
-    cookies_config {
-      cookie_behavior = 
-    }
-    headers_config {
-      
-    }
-    query_strings_config {
-      query_string_behavior = 
-    }
+  custom_error_response {
+    error_code         = 403
+    response_code      = 200
+    response_page_path = "/index.html"
   }
-  name = 
+
+  custom_error_response {
+    error_code         = 404
+    response_code      = 200
+    response_page_path = "/index.html"
+  }
+
+  default_root_object = "index.html"
+  enabled             = true
+  aliases             = var.prefix == "familiar-dev" ? ["dev.familiar.link"] : ["familiar.link", "www.familiar.link"]
+
+  tags = {
+    Name = "${var.prefix}-cf-familiarCom"
+  }
 }
 
 resource "aws_cloudfront_origin_access_control" "frontend-app" {
-  name = 
+  name                              = "CloudFront familiar_com frontend oac"
+  description                       = "cloudfront to frontend s3 oac"
   origin_access_control_origin_type = "s3"
-  signing_protocol = "sigv4"
-  signing_behavior = "always"
-}
-
-resource "aws_cloudfront_response_headers_policy" "frontend-app" {
-  name = 
+  signing_protocol                  = "sigv4"
+  signing_behavior                  = "always"
 }

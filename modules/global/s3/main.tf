@@ -1,5 +1,4 @@
 locals {
-  arn_format = "arn:aws:s3:::"
 }
 
 # log bucket
@@ -29,8 +28,8 @@ data "aws_iam_policy_document" "log_bucket_policy" {
       "s3:PutObject"
     ]
     resources = [
-      "${local.arn_format}${var.log_bucket_name}/*",
-      "${local.arn_format}${var.log_bucket_name}"
+      "arn:aws:s3:::${var.log_bucket_name}/*",
+      "arn:aws:s3:::${var.log_bucket_name}"
     ]
     principals {
       type = "Service"

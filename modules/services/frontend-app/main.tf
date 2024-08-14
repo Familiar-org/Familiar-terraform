@@ -15,7 +15,7 @@ resource "aws_s3_bucket" "frontend-app" {
 resource "aws_s3_bucket_ownership_controls" "frontend-app" {
   bucket = aws_s3_bucket.frontend-app.id
   rule {
-    object_ownership = "BucketOwnerPreferred"
+    object_ownership = "BucketOwnerEnforced"
   }
 }
 
@@ -29,16 +29,16 @@ resource "aws_s3_bucket_acl" "frontend-app" {
 resource "aws_s3_bucket_versioning" "frontend-app" {
   bucket = aws_s3_bucket.frontend-app.id
   versioning_configuration {
-    status = var.s3_versioning
+    status = var.prefix == "familiar-dev" ? "Disabled" : "Enabled"
   }
 }
 
 resource "aws_s3_bucket_policy" "frontend-app" {
   bucket = aws_s3_bucket.frontend-app.id
-  policy = data.aws_iam_policy_document.frontend-bucket-policy
+  policy = data.aws_iam_policy_document.frontend-app-bucket-policy
 }
 
-data "aws_iam_policy_document" "frontend-bucket-policy" {
+data "aws_iam_policy_document" "frontend-app-bucket-policy" {
   # oac allow policy
   statement {
     sid = "allowOacPolicy"
@@ -136,7 +136,7 @@ resource "aws_cloudfront_distribution" "frontend-app" {
 }
 
 resource "aws_cloudfront_origin_access_control" "frontend-app" {
-  name                              = "CloudFront familiar_com frontend oac"
+  name                              = "${var.prefix}-frontend-cf-oac"
   description                       = "cloudfront to frontend s3 oac"
   origin_access_control_origin_type = "s3"
   signing_protocol                  = "sigv4"

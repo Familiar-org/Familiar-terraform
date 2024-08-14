@@ -10,7 +10,7 @@ variable "s3_origin_id" {
 
 }
 
-variable "s3_versioning" {
+variable "s3_versioning_able" {
 
 }
 

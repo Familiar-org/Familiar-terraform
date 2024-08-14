@@ -1,5 +1,7 @@
 output "pub_subnet_ids" {
-  value = aws_subnet.public_subnet
+  value = [
+    "${aws_subnet.public_subnet.id}"
+  ]
 }
 
 output "pri_subnet_ids" {

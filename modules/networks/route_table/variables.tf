@@ -14,14 +14,14 @@ variable "nat_gw_id" {
   
 }
 
-variable "public_subnet_id" {
+variable "public_subnet_ids" {
   
 }
 
-variable "private_subnet_id" {
+variable "private_subnet_ids" {
   
 }
 
-variable "db_private_subnet_id" {
+variable "db_private_subnet_ids" {
   
 }

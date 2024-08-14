@@ -129,6 +129,7 @@ resource "aws_cloudfront_distribution" "frontend-app" {
   aliases             = var.prefix == "familiar-dev" ? ["dev.familiar.link"] : ["familiar.link", "www.familiar.link"]
   is_ipv6_enabled     = false
   http_version        = "http2"
+  price_class         = "PriceClass_200"
 
   tags = {
     Name = "${var.prefix}-cf-distribution-familiar"

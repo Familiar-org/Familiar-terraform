@@ -8,7 +8,7 @@ resource "aws_route_table" "public" {
   }
 
   tags = {
-    Name = "${prefix}-pub-rtb"
+    Name = "${var.prefix}-pub-rtb"
   }
 }
 
@@ -27,7 +27,7 @@ resource "aws_route_table" "private" {
   }
 
   tags = {
-    Name = "${prefix}-pri-rtb"
+    Name = "${var.prefix}-pri-rtb"
   }
 }
 

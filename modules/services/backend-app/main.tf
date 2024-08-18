@@ -3,7 +3,7 @@ resource "aws_ecs_cluster" "backend" {
 }
 
 
-data "aws_iam_policy_document" "ecs_node_policy" {
+data "aws_iam_policy_document" "backend_node_assume" {
   statement {
     actions = ["sts:AssumeRole"]
     effect = "Allow" 
@@ -19,25 +19,25 @@ data "aws_iam_policy_document" "ecs_node_policy" {
 
 resource "aws_iam_role" "backend_node" {
   name        = "Ecs_Backend_Node_Role"
-  assume_role_policy = data.aws_iam_policy_document.ecs_node_doc.json
+  assume_role_policy = data.aws_iam_policy_document.backend_node_assume
 }
 
 # policy 생성 필요
 
 resource "aws_iam_role_policy_attachment" "backend_node" {
-  role       = aws_iam_role.backend_node_role.name
+  role       = aws_iam_role.backend_node.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEC2ContainerServiceforEC2Role"
 }
 
 
-resource "aws_iam_instance_profile" "ecs_node" {
-  name_prefix = "demo-ecs-node-profile"
-  role = aws_iam_role.backend_node
+resource "aws_iam_instance_profile" "backend_node" {
+  name = "${var.prefix}-backend-node-instance-profile"
+  role = aws_iam_role.backend_node.name
 }
 
 
-resource "aws_ecs_cluster_capacity_providers" "b" {
-  cluster_name = aws_ecs_cluster.name
+resource "aws_ecs_cluster_capacity_providers" "backend_node" {
+  cluster_name = aws_ecs_cluster.backend.name
 }
 
 # ssm paramter 로 퍼블릭 이미지 가져올 수 있음
@@ -47,12 +47,12 @@ data "aws_ssm_parameter" "ecs_node_ami" {
 
 
 resource "aws_launch_template" "ecs_ec2" {
-  name_prefix            = "demo-ecs-ec2-"
+  name = "${var.prefix}-ecs-node-launch-template"
   image_id               = data.aws_ssm_parameter.ecs_node_ami.value
-  instance_type          = "t2.micro"
-  vpc_security_group_ids = [aws_security_group.ecs_node_sg.id]
+  instance_type          = var.node_instance_type
+  vpc_security_group_ids = [var.ecs_node_sg_id]
 
-  iam_instance_profile { arn = aws_iam_instance_profile.ecs_node.arn }
+  iam_instance_profile { arn = aws_iam_instance_profile.backend_node.arn }
   monitoring { enabled = true }
 
   user_data = base64encode(<<-EOF

@@ -17,7 +17,7 @@ provider "aws" {
 module "domain" {
   source = "../../modules/global/domain"
   prefix = var.prefix
-  familiar_zone_name = var.familiar_zone_name
+  familiar_zone_name = var.familiar_link_domain_name
   familiar_link_domain_name = var.familiar_link_domain_name
   wildcard_familiar_link_domain_name = var.wildcard_familiar_link_domain_name
   familiar_a_name = var.familiar_link_domain_name

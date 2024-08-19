@@ -27,11 +27,11 @@ module "subnet" {
   pri_db_subnet_cidr_and_az = var.pri_db_subnet_cidr_and_az
 }
 
-# module "igw" {
-#   source = "../../modules/networks/internet_gateway"
-#   vpc_id = module.vpc.vpc_id
-#   prefix = var.prefix
-# }
+module "igw" {
+  source = "../../modules/networks/internet_gateway"
+  vpc_id = module.vpc.vpc_id
+  prefix = var.prefix
+}
 
 # module "nat_gw" {
 #   source        = "../../modules/networks/nat_gateway"

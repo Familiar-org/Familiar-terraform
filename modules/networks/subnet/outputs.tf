@@ -3,7 +3,7 @@ output "pub_subnet_ids" {
 }
 
 output "pri_subnet_ids" {
-  value = {  }
+  value = { for key, subnet in aws_subnet.private_subent : key => subnet.id }
 }
 
 output "pri_db_subnet_ids" {

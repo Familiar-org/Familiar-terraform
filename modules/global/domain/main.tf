@@ -1,10 +1,10 @@
 # acm
 
 resource "aws_acm_certificate" "familiar_link" {
-  domain_name       = var.wildcard_familiar_link_domain_name
+  domain_name       = var.familiar_link_domain_name
   validation_method = "DNS"
 
-  subject_alternative_names = [var.familiar_link_domain_name]
+  subject_alternative_names = [var.wildcard_familiar_link_domain_name]
 
   lifecycle {
     prevent_destroy = true
@@ -13,7 +13,7 @@ resource "aws_acm_certificate" "familiar_link" {
 
 resource "aws_route53_record" "familiar" {
   for_each = {
-    for dvo in aws_acm_certificate.example.domain_validation_options : dvo.domain_name => {
+    for dvo in aws_acm_certificate.familiar_link.domain_validation_options : dvo.domain_name => {
       name   = dvo.resource_record_name
       record = dvo.resource_record_value
       type   = dvo.resource_record_type
@@ -34,7 +34,7 @@ resource "aws_route53_record" "familiar" {
 # Route53
 
 resource "aws_route53_zone" "familiar" {
-  name = var.route53_familiar_zone_name
+  name = var.familiar_zone_name
 }
 
 resource "aws_route53_record" "familiar_a" {
@@ -55,7 +55,7 @@ resource "aws_route53_record" "familiar_a" {
 
 resource "aws_route53_record" "familiar_www_redirect" {
   zone_id = aws_route53_zone.familiar.id
-  name    = var.familiar_cname_name
+  name    = "www"
   type    = "CNAME"
-  records = var.familiar_cname_record
+  records = [aws_route53_zone.familiar.name]
 }

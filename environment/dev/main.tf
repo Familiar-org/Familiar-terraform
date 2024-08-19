@@ -1,3 +1,5 @@
+# Provider
+
 provider "aws" {
   region = var.region
   default_tags {
@@ -9,14 +11,19 @@ provider "aws" {
   }
 }
 
+
 # Global
 
-module "acm" {
-  source = "../../modules/global/acm"
+module "domain" {
+  source = "../../modules/global/domain"
   prefix = var.prefix
-  wildcard_familiar_link_domain_name = var.wildcard_familiar_link_domain_name
+  familiar_zone_name = var.familiar_zone_name
   familiar_link_domain_name = var.familiar_link_domain_name
+  wildcard_familiar_link_domain_name = var.wildcard_familiar_link_domain_name
+  familiar_a_name = var.familiar_link_domain_name
+  familiar_cf_alias_name = module.frontend.cf_alias_name
 }
+
 
 # Network
 

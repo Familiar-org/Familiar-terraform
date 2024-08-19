@@ -15,6 +15,10 @@ variable "familiar_link_domain_name" {
   
 }
 
+variable "familiar_zone_name" {
+  
+}
+
 # networks
 variable "vpc_cidr" {
 

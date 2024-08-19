@@ -9,6 +9,14 @@ provider "aws" {
   }
 }
 
+# Global
+
+module "acm" {
+  source = "../../modules/global/acm"
+  prefix = var.prefix
+  familiar_com_domain_name = var.familiar_com_domain_name
+}
+
 # Network
 
 module "vpc" {

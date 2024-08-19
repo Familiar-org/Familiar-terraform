@@ -1,5 +1,9 @@
 prefix = "familiar-dev"
 
+# global
+
+familiar_com_domain_name = "*.familiar.link"
+
 # networks
 vpc_cidr = "10.0.0.0/23"
 

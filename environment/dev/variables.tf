@@ -5,6 +5,12 @@ variable "region" {
 
 }
 
+# global
+
+variable "familiar_com_domain_name" {
+  
+}
+
 # networks
 variable "vpc_cidr" {
 

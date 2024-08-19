@@ -51,6 +51,13 @@ module "route_table" {
   db_private_subnet_ids = module.subnet.pri_db_subnet_ids
 }
 
+module "vpc_endpoint" {
+  source = "../../modules/networks/vpc_endpoint"
+  route_table_ids = module.route_table.pri_rtb_id
+  prefix = var.prefix
+  vpc_id = module.vpc.vpc_id
+}
+
 # Front-End
 
 

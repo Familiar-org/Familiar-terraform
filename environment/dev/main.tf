@@ -40,16 +40,16 @@ module "nat_gw" {
   pri_subnet_id = module.subnet.pri_subnet_ids[0]
 }
 
-# module "route_table" {
-#   source                = "../../modules/networks/route_table"
-#   prefix                = var.prefix
-#   igw_id                = module.igw.igw_id
-#   vpc_id                = module.vpc.vpc_id
-#   nat_gw_id             = module.nat_gw.nat_gw_id
-#   public_subnet_ids     = module.subnet.pub_subnet_ids["10.0.0.0/26"].id
-#   private_subnet_ids    = module.subnet.pri_subnet_ids[*].id
-#   db_private_subnet_ids = module.subnet.pri_db_subnet_ids[*].id
-# }
+module "route_table" {
+  source                = "../../modules/networks/route_table"
+  prefix                = var.prefix
+  igw_id                = module.igw.igw_id
+  vpc_id                = module.vpc.vpc_id
+  nat_gw_id             = module.nat_gw.nat_gw_id
+  public_subnet_ids     = module.subnet.pub_subnet_ids
+  private_subnet_ids    = module.subnet.pri_subnet_ids
+  db_private_subnet_ids = module.subnet.pri_db_subnet_ids
+}
 
 # Front-End
 

@@ -7,6 +7,10 @@ variable "region" {
 
 # global
 
+variable "wildcard_familiar_link_domain_name" {
+  
+}
+
 variable "familiar_link_domain_name" {
   
 }

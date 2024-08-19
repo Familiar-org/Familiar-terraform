@@ -2,7 +2,9 @@ prefix = "familiar-dev"
 
 # global
 
-familiar_link_domain_name = "*.familiar.link"
+familiar_link_domain_name = "familiar.link"
+
+wildcard_familiar_link_domain_name = "*.familiar.link"
 
 # networks
 vpc_cidr = "10.0.0.0/23"

@@ -37,7 +37,7 @@ module "nat_gw" {
   depends_on = [ module.subnet ]
   source        = "../../modules/networks/nat_gateway"
   prefix        = var.prefix
-  pri_subnet_id = module.subnet.pri_subnet_ids["10.0.1.0/26"].id
+  pri_subnet_id = module.subnet.pri_subnet_ids
 }
 
 # module "route_table" {

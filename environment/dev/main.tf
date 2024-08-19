@@ -76,7 +76,12 @@ module "vpc_endpoint" {
 
 # Front-End
 
+module "frontend" {
+  source = "../../modules/services/frontend-app"
+  prefix = var.prefix
+  familiar_com_acm_id = module.domain.familiar_acm_id
+  alb_origin_id = module.backend
+}
 
 # Back-End
-
 

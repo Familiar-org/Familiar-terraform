@@ -77,7 +77,7 @@ resource "aws_cloudfront_distribution" "frontend-app" {
 
   origin {
     domain_name              = aws_s3_bucket.frontend-app.bucket_domain_name
-    origin_id                = var.s3_origin_id
+    origin_id                = aws_s3_bucket.frontend-app.id
     origin_access_control_id = aws_cloudfront_origin_access_control.frontend-app.id
   }
 

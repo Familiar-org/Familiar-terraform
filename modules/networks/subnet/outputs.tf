@@ -1,5 +1,5 @@
 output "pub_subnet_ids" {
-  value = [ for subnet in aws_subnet.public_subnet : subnet.id ]
+  value = { for key, subnet in aws_subnet.public_subnet : key => subnet.id }
 }
 
 output "pri_subnet_ids" {

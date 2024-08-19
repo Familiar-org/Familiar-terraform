@@ -1,5 +1,5 @@
-resource "aws_acm_certificate" "familiar_com" {
-  domain_name       = var.familiar_com_domain_name
+resource "aws_acm_certificate" "familiar_link" {
+  domain_name       = var.familiar_link_domain_name
   validation_method = "DNS"
 
   lifecycle {

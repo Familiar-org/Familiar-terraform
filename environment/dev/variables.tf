@@ -7,7 +7,7 @@ variable "region" {
 
 # global
 
-variable "familiar_com_domain_name" {
+variable "familiar_link_domain_name" {
   
 }
 

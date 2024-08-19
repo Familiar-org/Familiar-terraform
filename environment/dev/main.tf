@@ -36,7 +36,7 @@ module "igw" {
 module "nat_gw" {
   source        = "../../modules/networks/nat_gateway"
   prefix        = var.prefix
-  pri_subnet_id = module.subnet.pri_subnet_ids[0].id
+  pri_subnet_id = module.subnet.pri_subnet_ids["10.0.1.0/26"].id
 }
 
 # module "route_table" {

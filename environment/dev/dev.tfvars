@@ -25,3 +25,9 @@ pri_db_subnet_cidr_and_az = {
   "10.0.1.128/26" = "us-east-1a",
   "10.0.1.192/26" = "us-east-1c"
 }
+
+backend_node_instance_type = "t2.micro"
+
+ecs_backend_min_asg_size = 2
+
+ecs_backend_max_asg_size = 6

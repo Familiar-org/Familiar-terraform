@@ -33,3 +33,14 @@ variable "pri_db_subnet_cidr_and_az" {
 
 # application
 
+variable "backend_node_instance_type" {
+  
+}
+
+variable "ecs_backend_min_asg_size" {
+  
+}
+
+variable "ecs_backend_max_asg_size" {
+  
+}

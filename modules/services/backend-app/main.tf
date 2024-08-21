@@ -21,7 +21,7 @@ locals {
 
 # ECS Cluster
 resource "aws_ecs_cluster" "backend" {
-  name = var.ecs_cluster_name
+  name = "${var.prefix}-ecs-cluster-backend"
 }
 
 data "aws_iam_policy_document" "backend_node_assume" {
@@ -64,7 +64,7 @@ resource "aws_launch_template" "ecs_ec2" {
   name = "${var.prefix}-ecs-node-launch-template"
   image_id               = data.aws_ssm_parameter.ecs_node_ami.value
   instance_type          = var.backend_node_instance_type
-  vpc_security_group_ids = [var.ecs_node_sg_id]
+  vpc_security_group_ids = [aws_security_group.backend.id]
 
   iam_instance_profile { arn = aws_iam_instance_profile.backend_node.arn }
   monitoring { enabled = true }
@@ -79,8 +79,9 @@ resource "aws_launch_template" "ecs_ec2" {
 resource "aws_autoscaling_group" "ecs" {
   name = "${var.prefix}-ecs-asg"
   vpc_zone_identifier       = var.pub_subnet_ids
-  min_size                  = var.min_asg_size
-  max_size                  = var.max_asg_size
+  min_size                  = var.ecs_backend_min_asg_size
+  max_size                  = var.ecs_backend_max_asg_size
+  
   health_check_grace_period = 0
   health_check_type         = "EC2"
   protect_from_scale_in     = false

@@ -5,3 +5,7 @@ output "backend_ecr_repo_url" {
 output "backend_alb_url" {
   value = aws_lb.backend.dns_name
 }
+
+output "backend_alb_id" {
+  value = aws_lb.backend.id
+}

@@ -80,8 +80,17 @@ module "frontend" {
   source = "../../modules/services/frontend-app"
   prefix = var.prefix
   familiar_com_acm_id = module.domain.familiar_acm_id
-  alb_origin_id = module.backend
+  alb_origin_id = module.backend.backend_alb_id
 }
 
 # Back-End
 
+module "backend" {
+  source = "../../modules/services/backend-app"
+  vpc_id = module.vpc.vpc_id
+  prefix = var.prefix
+  pub_subnet_ids = module.subnet.pub_subnet_ids
+  backend_node_instance_type = var.backend_node_instance_type
+  ecs_backend_min_asg_size = var.ecs_backend_min_asg_size
+  ecs_backend_max_asg_size = var.ecs_backend_max_asg_size
+}

@@ -71,6 +71,31 @@ data "aws_iam_policy_document" "log_bucket_policy" {
       ]
     }
   }
+
+  statement { # 작성 필요
+    sid = "backendLog"
+    effect = "Allow"
+    actions = [
+      
+    ]
+    resources = [
+
+    ]
+    principals {
+      type = "Service"
+      identifiers = [
+
+      ]
+    }
+    condition {
+      test = ""
+      variable =
+
+      values = [
+
+      ]
+    }
+  }
 }
 
 # https://github.com/cloudposse/terraform-aws-vpc-flow-logs-s3-bucket/blob/main/main.tf

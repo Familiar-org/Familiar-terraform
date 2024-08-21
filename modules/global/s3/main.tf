@@ -54,7 +54,7 @@ data "aws_iam_policy_document" "log_bucket_policy" {
       "s3:List*"
     ]
     resources = [
-      "${local.arn_format}${var.log_bucket_name}"
+      "arn:aws:s3:::${var.log_bucket_name}"
     ]
     principals {
       type = "Service"
@@ -62,37 +62,12 @@ data "aws_iam_policy_document" "log_bucket_policy" {
         "delivery.logs.amazonaws.com"
       ]
     }
-    condition { # 수정 필요
+    condition { 
       test     = "StringEquals"
       variable = "aws:SourceAccount"
 
       values = [
-        "${account id 12 digit}"
-      ]
-    }
-  }
-
-  statement { # 작성 필요
-    sid = "backendLog"
-    effect = "Allow"
-    actions = [
-      
-    ]
-    resources = [
-
-    ]
-    principals {
-      type = "Service"
-      identifiers = [
-
-      ]
-    }
-    condition {
-      test = ""
-      variable =
-
-      values = [
-
+        "${account id 12 digit}" # 수정 필요
       ]
     }
   }

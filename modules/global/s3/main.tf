@@ -1,5 +1,10 @@
 locals {
+  arn_format = "anr:${data.aws_partition.current.partition}"
 }
+
+data "aws_partition" "current" {}
+
+data "aws_caller_identity" "current" {}
 
 # log bucket
 resource "aws_s3_bucket" "log_bucket" {
@@ -67,7 +72,7 @@ data "aws_iam_policy_document" "log_bucket_policy" {
       variable = "aws:SourceAccount"
 
       values = [
-        "${account id 12 digit}" # 수정 필요
+        "${local.arn_format}:s3:::${var.log_bucket_name}"
       ]
     }
   }

@@ -26,6 +26,8 @@ pri_db_subnet_cidr_and_az = {
   "10.0.1.192/26" = "us-east-1c"
 }
 
+# Backend
+
 backend_node_instance_type = "t2.micro"
 
 ecs_backend_min_asg_size = 2

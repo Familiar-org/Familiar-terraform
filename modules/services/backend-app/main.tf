@@ -290,7 +290,7 @@ resource "aws_ecs_service" "backend_app" {
   desired_count   = 2
 
   network_configuration {
-    security_groups = [aws_security_group.backend]
+    security_groups = ["${aws_security_group.backend}"]
     subnets         = var.pub_subnet_ids
   }
 

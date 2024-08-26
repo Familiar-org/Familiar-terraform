@@ -1,5 +1,5 @@
 locals {
-  arn_format = "anr:${data.aws_partition.current.partition}"
+  arn_format = "arn:${data.aws_partition.current.partition}"
 }
 
 data "aws_partition" "current" {}

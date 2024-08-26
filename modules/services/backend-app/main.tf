@@ -37,7 +37,7 @@ data "aws_iam_policy_document" "backend_node_assume" {
 
 resource "aws_iam_role" "backend_node" {
   name        = "Ecs_Backend_Node_Role"
-  assume_role_policy = data.aws_iam_policy_document.backend_node_assume
+  assume_role_policy = data.aws_iam_policy_document.backend_node_assume.json
 }
 
 resource "aws_iam_role_policy_attachment" "backend_node" {

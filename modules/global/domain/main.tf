@@ -7,7 +7,7 @@ resource "aws_acm_certificate" "familiar_link" {
   subject_alternative_names = [var.wildcard_familiar_link_domain_name]
 
   lifecycle {
-    prevent_destroy = true
+    prevent_destroy = false
   }
 }
 
